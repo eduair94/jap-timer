@@ -1,0 +1,25 @@
+.card {
+    width: 700px
+}
+
+.d-flex {
+    gap:16px;
+}
+
+h1 {
+    font-size:6em;
+}
+
+button i {
+    font-size:3em;
+}
+
+@media(max-width:768px) {
+    h1 {
+        font-size:4em;
+    }
+    
+    button i {
+        font-size:2em;
+    }
+}
