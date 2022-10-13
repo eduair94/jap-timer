@@ -7,15 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let time = 0;
   let isPlay = false;
   let interval;
-
-  const mark_item = (el) => {
-    if (document.querySelector(".btn-dark")) {
-      document.querySelector(".btn-dark").classList.remove("btn-dark");
-    }
-    if (el) {
-      el.classList.add("btn-dark");
-    }
-  };
+  let interval_time = 1000;
+  const input_timer = document.getElementById("input_timer");
 
   const print_time = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -27,14 +20,40 @@ document.addEventListener("DOMContentLoaded", () => {
       .padStart(2, "0")}:${new_seconds.toString().padStart(2, "0")}`;
   };
 
-  playBtn.addEventListener("click", (e) => {
+  const playExec = () => {
     if (isPlay) return;
     isPlay = true;
     interval = setInterval(() => {
-      print_time(time);
       time++;
-    }, 1000);
+      print_time(time);
+    }, interval_time);
     mark_item(playBtn);
+  };
+
+  input_timer.addEventListener("input", function () {
+    const val = parseInt(this.value);
+    if (!isNaN(val) && val !== interval_time) {
+      interval_time = val;
+      if (interval) {
+        clearInterval(interval);
+      }
+      isPlay = false;
+      console.log("PLAY EXEC");
+      playExec();
+    }
+  });
+
+  const mark_item = (el) => {
+    if (document.querySelector(".btn-dark")) {
+      document.querySelector(".btn-dark").classList.remove("btn-dark");
+    }
+    if (el) {
+      el.classList.add("btn-dark");
+    }
+  };
+
+  playBtn.addEventListener("click", (e) => {
+    playExec();
   });
 
   pauseBtn.addEventListener("click", () => {
